@@ -18,7 +18,11 @@
   color: #fff;
   background-color: #1a202c;
 }
-
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 body,
 blockquote,
 dl,

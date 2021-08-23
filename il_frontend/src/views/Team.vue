@@ -8,8 +8,6 @@
           class="il__pilot__card"
           v-for="(pilot, index) in team.pilots"
           :key="index"
-          color="#242c41"
-          style="border: 1px solid #fff"
         >
           <v-card-title>
             <div class="il__pilot__card__title">
@@ -56,19 +54,26 @@ export default {
   width: 100%;
 }
 
-.il__pilot__card {
+.il__pilot__card.il__pilot__card.il__pilot__card {
   margin-bottom: 40px;
   border-radius: 20px;
   width: 48%;
+  background-color: #242c41;
+  border: 1px solid #fff;
+  transition: 0.5s;
 }
-
+.il__pilot__card.il__pilot__card.il__pilot__card:hover {
+  /*box-shadow: 0 0 10px 5px rgb(139, 50, 81);*/
+  box-shadow: -5px 5px 10px 5px rgb(92, 25, 48),
+    5px -5px 10px 5px rgb(23, 123, 222);
+}
 .il__pilot__card__title {
   color: #fff;
   font-size: 26px;
   font-weight: 700;
   margin: 0 auto;
   border-radius: 4px;
-  box-shadow: 0 0 8px rgb(255 255 255);
+  /*box-shadow: 0 0 8px rgb(255 255 255);*/
   padding: 2px 5px;
 }
 

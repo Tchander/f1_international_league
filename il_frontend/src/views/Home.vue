@@ -3,15 +3,16 @@
     <header-banner />
     <div class="il__container">
       <navigation />
-      <video
+      <iframe
         class="il__video"
-        src="../assets/video/il_introduction.webm"
-        autoplay
-        loop
-        controls
-        muted
-        width="1200px"
-      ></video>
+        width="800"
+        height="450"
+        src="https://www.youtube.com/embed/DDLqjtwd9Aw"
+        title="YouTube video player"
+        frameborder="No"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen
+      ></iframe>
     </div>
     <footer-info />
   </div>
@@ -33,6 +34,6 @@ export default {
   font-family: "Lato", sans-serif;
 }
 .il__video {
-  margin-bottom: 30px;
+  margin-bottom: 35px;
 }
 </style>

@@ -7,8 +7,6 @@
         class="il__team__card"
         v-for="(team, index) in teams"
         :key="index"
-        color="#242c41"
-        style="border: 1px solid #fff"
       >
         <router-link
           class="il__team__link"
@@ -76,12 +74,19 @@ export default {
 </script>
 
 <style scoped>
-.il__team__card {
+.il__team__card.il__team__card.il__team__card {
   max-width: 1000px;
   margin: 0 auto 20px auto;
   border-radius: 20px;
+  border: 1px solid #fff;
+  background-color: #242c41;
+  transition: 0.5s;
 }
-
+.il__team__card.il__team__card.il__team__card:hover {
+  /*box-shadow: 0 0 10px 5px rgb(139, 50, 81);*/
+  box-shadow: -5px 5px 10px 5px rgb(92, 25, 48),
+    5px -5px 10px 5px rgb(23, 123, 222);
+}
 .il__team__card__title {
   color: #fff;
   font-size: 26px;
