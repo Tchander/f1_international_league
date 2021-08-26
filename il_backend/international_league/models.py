@@ -1,5 +1,5 @@
 from django.db import models
-from django.db.models import F
+from django.db.models import F, Q
 from django.db.models.signals import pre_save, post_save
 from django.dispatch import receiver
 
@@ -21,7 +21,7 @@ class Pilot(models.Model):
                               max_length=200, default=None, null=True, help_text='Аватарка пилота')
     is_main_pilot = models.BooleanField('Is main pilot', default=True, help_text='Действующий или резервный пилот')
     total_score = models.SmallIntegerField('Total score', default=0, help_text='Количество очков в личном зачёте')
-    qualifying_victories_over_teammate =\
+    qualifying_victories_over_teammate = \
         models.PositiveSmallIntegerField('Qualifying victories over teammate', default=0,
                                          help_text='Побед в квалификации над тиммейтом')
     race_victories_over_teammate = models.PositiveSmallIntegerField('Race victories over teammate', default=0,
@@ -31,6 +31,12 @@ class Pilot(models.Model):
     best_race_finish = models.PositiveSmallIntegerField('Best race finish', default=None, null=True,
                                                         help_text='Самая высокая позиция занятая в гонке')
     do_not_finish = models.PositiveSmallIntegerField('Do not finish', default=0, help_text='Количество сходов в гонках')
+    number_of_races_completed = models.PositiveSmallIntegerField('Number of races completed', default=0,
+                                                                 help_text='Количество пройдённых гонок в сезоне')
+    position_in_the_last_race = models.CharField('Position in the last race', max_length=20, default='',
+                                                 help_text='Позиция в последней гонке')
+    position_in_the_last_qualifying = models.CharField('Position in the last qualifying', max_length=20, default='',
+                                                       help_text='Позиция в последней квалификации')
     team = models.ForeignKey(Team, verbose_name='Team', on_delete=models.SET_NULL, blank=True, null=True,
                              help_text='Команда в которой выступает пилот')
 
@@ -44,12 +50,12 @@ class Race(models.Model):
 
 class Result(models.Model):
     race_position = models.CharField('Race position', max_length=20, default='DNS', help_text='Позиция в гонке')
-    qualifying_position = models.PositiveSmallIntegerField('Qualifying position', default=None,
-                                                           help_text='Позиция в квалификации')
+    qualifying_position = models.CharField('Qualifying position', max_length=20, default='DNQ',
+                                           help_text='Позиция в квалификации')
     score = models.SmallIntegerField('Score', default=0, help_text='Количество заработанных очков в гонке')
     penalties = models.PositiveSmallIntegerField('Penalties', default=0, help_text='Штрафы полученные в гонке')
     best_lap = models.CharField('Best lap', max_length=20, default='', help_text='Время лучшего круга в гонке')
-    is_race_best_lap =\
+    is_race_best_lap = \
         models.BooleanField('Is race best lap', default=False,
                             help_text='Является ли этот результат лучшим кругом среди всех участников гонки')
     pilot = models.ForeignKey(Pilot, verbose_name='Pilot', on_delete=models.CASCADE,
@@ -102,4 +108,45 @@ def calc_pilot_score_for_race(sender, instance, *args, **kwargs):
 
 @receiver(post_save, sender=Result)
 def update_pilot(sender, instance, *args, **kwargs):
-    Pilot.objects.filter(id=instance.pilot.id).update(total_score=F("total_score")+instance.score)
+    pilot = Pilot.objects.filter(id=instance.pilot.id)
+    pilot.update(total_score=F("total_score") + instance.score)
+    pilot.update(number_of_races_completed=F("number_of_races_completed") + 1)
+    pilot.update(position_in_the_last_race=instance.race_position)
+    pilot.update(position_in_the_last_qualifying=instance.qualifying_position)
+    instance.pilot.total_score += instance.score
+    instance.pilot.number_of_races_completed += 1
+    instance.pilot.position_in_the_last_race = instance.race_position
+    instance.pilot.position_in_the_last_qualifying = instance.qualifying_position
+    if pilot[0].league == 1:
+        Team.objects.filter(id=pilot[0].team_id). \
+            update(total_score_league1=F("total_score_league1") + pilot[0].total_score)
+    elif pilot[0].league == 2:
+        Team.objects.filter(id=pilot[0].team_id). \
+            update(total_score_league2=F("total_score_league2") + pilot[0].total_score)
+    if instance.qualifying_position != 'DNQ':
+        if pilot[0].highest_grid_position is None or pilot[0].highest_grid_position > int(instance.qualifying_position):
+            pilot.update(highest_grid_position=int(instance.qualifying_position))
+    if instance.race_position != 'DNF' and instance.race_position != 'DNS':
+        if pilot[0].best_race_finish is None or pilot[0].best_race_finish > int(instance.race_position):
+            pilot.update(best_race_finish=int(instance.race_position))
+    if instance.race_position == 'DNF':
+        pilot.update(do_not_finish=F("do_not_finish") + 1)
+    teammate = Pilot.objects.filter(Q(team_id=pilot[0].team_id), Q(league=pilot[0].league), ~Q(id=pilot[0].id))
+    if len(teammate) != 0:
+        if pilot[0].number_of_races_completed == teammate[0].number_of_races_completed:
+            if pilot[0].position_in_the_last_race != 'DNS' and teammate[0].position_in_the_last_race != 'DNS':
+                if pilot[0].position_in_the_last_race == 'DNF' and teammate[0].position_in_the_last_race != 'DNF':
+                    teammate.update(race_victories_over_teammate=F("race_victories_over_teammate") + 1)
+                elif pilot[0].position_in_the_last_race != 'DNF' and teammate[0].position_in_the_last_race == 'DNF':
+                    pilot.update(race_victories_over_teammate=F("race_victories_over_teammate") + 1)
+                elif pilot[0].position_in_the_last_race != 'DNF' and teammate[0].position_in_the_last_race != 'DNF':
+                    if int(pilot[0].position_in_the_last_race) > int(teammate[0].position_in_the_last_race):
+                        teammate.update(race_victories_over_teammate=F("race_victories_over_teammate") + 1)
+                    else:
+                        pilot.update(race_victories_over_teammate=F("race_victories_over_teammate") + 1)
+            if pilot[0].qualifying_victories_over_teammate != 'DNQ' and\
+                    teammate[0].qualifying_victories_over_teammate != 'DNQ':
+                if int(pilot[0].position_in_the_last_qualifying) > int(teammate[0].position_in_the_last_qualifying):
+                    teammate.update(qualifying_victories_over_teammate=F("qualifying_victories_over_teammate") + 1)
+                else:
+                    pilot.update(qualifying_victories_over_teammate=F("qualifying_victories_over_teammate") + 1)
