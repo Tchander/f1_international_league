@@ -1,6 +1,6 @@
 import Vue from "vue";
 import Vuex from "vuex";
-import teams from "./modules/teams";
+import teams from "@/store/modules/teams";
 
 Vue.use(Vuex);
 

@@ -1,15 +1,15 @@
 <template>
   <div>
     <header-banner />
-    <div class="il__container">
+    <div class="il-container">
       <navigation />
     </div>
   </div>
 </template>
 
 <script>
-import HeaderBanner from "../components/HeaderBanner";
-import Navigation from "../components/Navigation";
+import HeaderBanner from "@/components/HeaderBanner";
+import Navigation from "@/components/Navigation";
 export default {
   name: "Calendar",
   components: { Navigation, HeaderBanner },

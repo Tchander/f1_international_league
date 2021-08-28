@@ -6,7 +6,7 @@ from django.dispatch import receiver
 
 class Team(models.Model):
     name = models.CharField('Name', max_length=50, default='', help_text='Название команды')
-    image = models.ImageField('Image', upload_to='assets/images/teams', height_field=None, width_field=None,
+    image = models.ImageField('Image', upload_to='../assets/images/teams', height_field=None, width_field=None,
                               max_length=200, default=None, null=True, help_text='Картинка команды')
     total_score_league1 = models.SmallIntegerField('Total score league 1', default=0,
                                                    help_text='Количество очков в кубке конструкторов лиги 1')
@@ -17,7 +17,7 @@ class Team(models.Model):
 class Pilot(models.Model):
     name = models.CharField('Name', max_length=100, default='', help_text='Имя пилота')
     league = models.PositiveSmallIntegerField('League', default=2, help_text='Номер лиги, в которой выступает пилот')
-    image = models.ImageField('Image', upload_to='assets/images/pilots', height_field=None, width_field=None,
+    image = models.ImageField('Image', upload_to='../assets/images/pilots', height_field=None, width_field=None,
                               max_length=200, default=None, null=True, help_text='Аватарка пилота')
     is_main_pilot = models.BooleanField('Is main pilot', default=True, help_text='Действующий или резервный пилот')
     total_score = models.SmallIntegerField('Total score', default=0, help_text='Количество очков в личном зачёте')
@@ -44,7 +44,7 @@ class Pilot(models.Model):
 class Race(models.Model):
     name = models.CharField('Name', max_length=100, default='', help_text='Название гоночной трассы')
     country = models.CharField('Country', max_length=50, default='', help_text='Страна, в которой проходит гонка')
-    country_flag = models.ImageField('Country flag', upload_to='assets/images/flags', height_field=None,
+    country_flag = models.ImageField('Country flag', upload_to='../assets/images/flags', height_field=None,
                                      width_field=None, max_length=200, default=None, null=True, help_text='Флаг страны')
 
 

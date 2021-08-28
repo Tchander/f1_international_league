@@ -1,34 +1,39 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import Home from "../views/Home.vue";
+import Home from "@/views/Home.vue";
+import Calendar from "@/views/Calendar";
+import TournamentTable from "@/views/TournamentTable";
+import Teams from "@/views/Teams";
+import Team from "@/views/Team";
+import { ROUTES } from "@/const";
 
 Vue.use(VueRouter);
 
 const routes = [
   {
-    path: "/",
+    path: ROUTES.home,
     name: "Home",
     component: Home,
   },
   {
-    path: "/calendar",
+    path: ROUTES.calendar,
     name: "Calendar",
-    component: () => import("../views/Calendar.vue"),
+    component: Calendar,
   },
   {
-    path: "/tournament_table",
+    path: ROUTES.tournament_table,
     name: "TournamentTable",
-    component: () => import("../views/TournamentTable.vue"),
+    component: TournamentTable,
   },
   {
-    path: "/teams",
+    path: ROUTES.teams,
     name: "Teams",
-    component: () => import("../views/Teams.vue"),
+    component: Teams,
   },
   {
-    path: "/team/:teamName",
+    path: ROUTES.team,
     name: "Team",
-    component: () => import("../views/Team.vue"),
+    component: Team,
     props: true,
   },
 ];
