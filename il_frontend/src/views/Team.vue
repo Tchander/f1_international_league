@@ -3,7 +3,7 @@
     <header-banner />
     <div class="il-container">
       <navigation :color="'lightGrey'" />
-      <team-cards :team-name="teamName" />
+      <team-cards :teamName="teamName" />
     </div>
     <footer-info :color="'lightGrey'" />
   </div>

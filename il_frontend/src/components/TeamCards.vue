@@ -11,15 +11,22 @@
         </div>
       </v-card-title>
       <v-card-text class="il-pilot-card__content">
-        <v-img class="il-pilot-card__image" :src="pilot.src"></v-img>
+        <v-img
+          class="il-pilot-card__image"
+          :src="$options.API_MEDIA_URL + pilot.image"
+        ></v-img>
       </v-card-text>
     </v-card>
   </div>
 </template>
 
 <script>
+import { API_MEDIA_URL } from "@/const";
+import { mapActions, mapState } from "vuex";
+
 export default {
   name: "TeamCards",
+  API_MEDIA_URL,
   props: {
     teamName: {
       type: String,
@@ -27,9 +34,16 @@ export default {
     },
   },
   computed: {
-    team() {
-      return this.$store.getters.getTeamByName(this.teamName);
-    },
+    ...mapState("teams", {
+      team: "currentTeam",
+    }),
+  },
+  methods: {
+    ...mapActions("teams", ["getTeamByUrlName"]),
+  },
+  async mounted() {
+    console.log(this.teamName);
+    await this.getTeamByUrlName(this.teamName);
   },
 };
 </script>
@@ -51,7 +65,6 @@ export default {
   transition: 0.5s;
 }
 .il-pilot-card.il-pilot-card.il-pilot-card:hover {
-  /*box-shadow: 0 0 10px 5px rgb(139, 50, 81);*/
   box-shadow: -5px 5px 10px 5px rgb(92, 25, 48),
     5px -5px 10px 5px rgb(23, 123, 222);
 }
@@ -65,10 +78,10 @@ export default {
 }
 
 .il-pilot-card__image.il-pilot-card__image.il-pilot-card__image {
-  width: 207px;
-  height: 213px;
+  width: 178px;
+  height: 205px;
   margin: 0 auto;
   border-radius: 10px;
-  box-shadow: 0 0 8px rgb(255 255 255);
+  box-shadow: 0 0 8px rgb(92, 25, 48);
 }
 </style>

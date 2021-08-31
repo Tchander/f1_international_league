@@ -5,41 +5,32 @@
         class="il-team-link"
         :to="{
           name: 'Team',
-          path: '/team' + team.urlName,
-          params: { teamName: team.urlName },
+          path: '/team' + team.url_name,
+          params: { teamName: team.url_name },
         }"
       >
         <v-card-title class="il-team-card__title">{{ team.name }}</v-card-title>
         <v-card-text class="il-team-card__content">
           <v-img
-            :src="$options.API_MEDIA_URL + team.src"
+            :src="$options.API_MEDIA_URL + team.image"
             class="il-team-card__image"
           ></v-img>
           <div class="il-team-card__text-content">
-            <div v-for="(pilot, i) in team.pilots" :key="i">
+            <div v-for="(pilot, i) in filterByLeague(team.pilots)" :key="i">
               <h3
+                v-if="pilot.league === 1 && i === 0"
                 class="il-team-card__text-content__league"
-                v-if="pilot.league === 1 && i !== 1"
               >
                 Лига 1
               </h3>
-              <h4
-                class="il-team-card__text-content__pilot"
-                v-if="pilot.league === 1"
-              >
-                {{ i + 1 }}. {{ pilot.name }}
-              </h4>
               <h3
+                v-if="pilot.league === 2 && i === 2"
                 class="il-team-card__text-content__league"
-                v-if="pilot.league === 2 && i !== 3"
               >
                 Лига 2
               </h3>
-              <h4
-                class="il-team-card__text-content__pilot"
-                v-if="pilot.league === 2"
-              >
-                {{ i - 1 }}. {{ pilot.name }}
+              <h4 class="il-team-card__text-content__pilot">
+                {{ i + 1 }}. {{ pilot.name }}
               </h4>
             </div>
           </div>
@@ -51,25 +42,25 @@
 
 <script>
 import { API_MEDIA_URL } from "@/const";
+import { mapActions, mapState } from "vuex";
 export default {
   name: "TeamsCards",
   API_MEDIA_URL,
-  data() {
-    return {
-      f1_teams: [],
-    };
-  },
   computed: {
-    teams() {
-      return this.$store.getters.allTeams;
+    ...mapState("teams", {
+      teams: "teams",
+    }),
+  },
+  methods: {
+    ...mapActions("teams", ["getAllTeams"]),
+    ...mapActions("pilots", ["getAllPilots"]),
+    filterByLeague(pilots) {
+      return pilots.sort((prev, next) => prev.league - next.league);
     },
   },
-  async created() {
-    const { data } = await this.axios.get(
-      "http://localhost:8000/api/v1/pilots/"
-    );
-    console.log(data);
-    this.f1_teams = data;
+  async mounted() {
+    await this.getAllTeams();
+    await this.getAllPilots();
   },
 };
 </script>

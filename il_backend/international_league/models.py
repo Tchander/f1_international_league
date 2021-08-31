@@ -6,6 +6,7 @@ from django.dispatch import receiver
 
 class Team(models.Model):
     name = models.CharField('Name', max_length=50, default='', help_text='Название команды')
+    url_name = models.CharField('Url name', max_length=50, default='', help_text='Адрес url', unique=True)
     image = models.ImageField('Image', upload_to='../assets/images/teams', height_field=None, width_field=None,
                               max_length=200, default=None, null=True, help_text='Картинка команды')
     total_score_league1 = models.SmallIntegerField('Total score league 1', default=0,

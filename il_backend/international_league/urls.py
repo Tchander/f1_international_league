@@ -1,7 +1,9 @@
 from django.urls import path
 
-from international_league.views import PilotView
+from international_league.views import *
 
 urlpatterns = [
-    path('pilots/', PilotView.as_view())
+    path('teams/<str:url_name>/', TeamDetailView.as_view()),
+    path('teams/', TeamView.as_view()),
+    path('pilots/', PilotView.as_view()),
 ]
