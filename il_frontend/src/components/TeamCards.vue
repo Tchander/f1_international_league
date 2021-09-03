@@ -42,7 +42,6 @@ export default {
     ...mapActions("teams", ["getTeamByUrlName"]),
   },
   async mounted() {
-    console.log(this.teamName);
     await this.getTeamByUrlName(this.teamName);
   },
 };
@@ -63,6 +62,7 @@ export default {
   background-color: #242c41;
   border: 1px solid #fff;
   transition: 0.5s;
+  cursor: pointer;
 }
 .il-pilot-card.il-pilot-card.il-pilot-card:hover {
   box-shadow: -5px 5px 10px 5px rgb(92, 25, 48),

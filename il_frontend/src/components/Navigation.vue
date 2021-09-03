@@ -13,7 +13,7 @@
       <router-link class="navigation__link" to="/calendar"
         >Календарь</router-link
       >
-      <router-link class="navigation__link" to="/tournament_table"
+      <router-link class="navigation__link" to="/table"
         >Турнирная таблица</router-link
       >
       <router-link class="navigation__link" to="/teams">Команды</router-link>

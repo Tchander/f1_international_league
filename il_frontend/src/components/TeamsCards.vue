@@ -53,14 +53,12 @@ export default {
   },
   methods: {
     ...mapActions("teams", ["getAllTeams"]),
-    ...mapActions("pilots", ["getAllPilots"]),
     filterByLeague(pilots) {
       return pilots.sort((prev, next) => prev.league - next.league);
     },
   },
   async mounted() {
     await this.getAllTeams();
-    await this.getAllPilots();
   },
 };
 </script>

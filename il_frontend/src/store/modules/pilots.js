@@ -10,22 +10,13 @@ export default {
         console.log(e);
       }
     },
-    // async getAllPilots(ctx) {
-    //   const { data } = await axios.get("http://localhost:8000/api/v1/pilots/");
-    //   ctx.commit("updatePilots", data);
-    // },
   },
   mutations: {
-    updatePilots(state, pilots) {
-      state.pilots = pilots;
+    updatePilots(state, payload) {
+      state.pilots = payload;
     },
   },
   state: {
     pilots: [],
-  },
-  getters: {
-    allPilots(state) {
-      return state.pilots;
-    },
   },
 };
