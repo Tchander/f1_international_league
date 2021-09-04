@@ -10,6 +10,9 @@
       <div class="logo__home">Главная</div>
     </router-link>
     <div class="navigation__links">
+      <router-link class="navigation__link" to="/regulations"
+        >Регламент</router-link
+      >
       <router-link class="navigation__link" to="/calendar"
         >Календарь</router-link
       >

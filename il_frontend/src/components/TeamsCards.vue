@@ -16,7 +16,7 @@
             class="il-team-card__image"
           ></v-img>
           <div class="il-team-card__text-content">
-            <div v-for="(pilot, i) in filterByLeague(team.pilots)" :key="i">
+            <div v-for="(pilot, i) in team.pilots" :key="i">
               <h3
                 v-if="pilot.league === 1 && i === 0"
                 class="il-team-card__text-content__league"
@@ -52,10 +52,7 @@ export default {
     }),
   },
   methods: {
-    ...mapActions("teams", ["getAllTeams"]),
-    filterByLeague(pilots) {
-      return pilots.sort((prev, next) => prev.league - next.league);
-    },
+    ...mapActions("teams", ["getAllTeams"])
   },
   async mounted() {
     await this.getAllTeams();

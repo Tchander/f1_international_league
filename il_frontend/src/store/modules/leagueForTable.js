@@ -1,3 +1,5 @@
+import {LEAGUES} from "@/const";
+
 export default {
   namespaced: true,
   actions: {
@@ -15,6 +17,6 @@ export default {
     },
   },
   state: {
-    leagueForTable: 1,
+    leagueForTable: LEAGUES.FIRST,
   },
 };

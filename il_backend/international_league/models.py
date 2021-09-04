@@ -66,12 +66,12 @@ class Result(models.Model):
                                                      help_text='Принадлежит ли этот результат резервному пилоту')
     league = models.SmallIntegerField('League', default=1,
                                       help_text='Номер лиги к которой принадлежит данный результат')
-    team_id = models.PositiveSmallIntegerField('Team id', default=None, null=True,
-                                               help_text='ID команды, к которой относится данный результат')
     pilot = models.ForeignKey(Pilot, verbose_name='Pilot', on_delete=models.CASCADE,
                               help_text='Пилот, к которому относится данный результат')
     race = models.ForeignKey(Race, verbose_name='Race', on_delete=models.CASCADE,
                              help_text='Трасса, к которой относится данный результат')
+    team = models.ForeignKey(Team, verbose_name='Team', on_delete=models.CASCADE,
+                             help_text='Команда, к которой относится данный результат')
 
     def calc_score(self):
         if self.race_position == '1':

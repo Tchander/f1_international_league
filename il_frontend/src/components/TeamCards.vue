@@ -1,5 +1,5 @@
 <template>
-  <div class="il-pilot-cards">
+  <div class="il-pilot-cards" v-if="team">
     <v-card
       class="il-pilot-card"
       v-for="(pilot, index) in team.pilots"
