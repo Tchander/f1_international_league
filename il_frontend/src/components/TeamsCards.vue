@@ -52,7 +52,7 @@ export default {
     }),
   },
   methods: {
-    ...mapActions("teams", ["getAllTeams"])
+    ...mapActions("teams", ["getAllTeams"]),
   },
   async mounted() {
     await this.getAllTeams();

@@ -8,7 +8,7 @@
     >
     <v-btn
       @click="switchTable($options.LEAGUES.SECOND)"
-      :class="{ active: leagueForTable === $options.LEAGUES.SECOND  }"
+      :class="{ active: leagueForTable === $options.LEAGUES.SECOND }"
       class="il-league__btn"
       >Лига 2</v-btn
     >
@@ -34,12 +34,12 @@ export default {
     },
   },
   mounted() {
-    const { league } = this.$route.query
-    console.log(this.$route.query)
+    const { league } = this.$route.query;
+    console.log(this.$route.query);
     if (league) {
-        this.switchLeagueNumber(Number(league));
+      this.switchLeagueNumber(Number(league));
     }
-  }
+  },
 };
 </script>
 
