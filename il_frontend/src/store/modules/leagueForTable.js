@@ -1,4 +1,4 @@
-import {LEAGUES} from "@/const";
+import { LEAGUES } from "@/const";
 
 export default {
   namespaced: true,
