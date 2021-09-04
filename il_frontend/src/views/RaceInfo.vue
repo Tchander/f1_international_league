@@ -3,12 +3,13 @@
     <header-banner />
     <div class="il-container">
       <navigation :color="'lightGrey'" />
-      <v-simple-table class="il-table">
+      <v-simple-table class="il-table" v-if="currentRace">
         <template v-slot:default>
           <thead>
             <tr class="il-table-head">
               <th class="text-center">Поз.</th>
               <th class="text-center">Пилот</th>
+              <th class="text-center">Команда</th>
               <th class="text-center">Очки</th>
             </tr>
           </thead>
@@ -20,6 +21,7 @@
             >
               <td class="il-table-col">{{ index + 1 }}</td>
               <td class="il-table-col">{{ result.pilot }}</td>
+              <td class="il-table-col">{{ result.team }}</td>
               <td class="il-table-col">
                 <div v-if="result.score % 1 !== 0">
                   {{ result.score }}

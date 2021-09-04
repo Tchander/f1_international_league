@@ -1,14 +1,14 @@
 <template>
   <div class="il-league-buttons">
     <v-btn
-      @click="switchTable(1)"
-      :class="{ active: isActiveLeague1 }"
+      @click="switchTable($options.LEAGUES.FIRST)"
+      :class="{ active: leagueForTable === $options.LEAGUES.FIRST }"
       class="il-league__btn"
       >Лига 1</v-btn
     >
     <v-btn
-      @click="switchTable(2)"
-      :class="{ active: isActiveLeague2 }"
+      @click="switchTable($options.LEAGUES.SECOND)"
+      :class="{ active: leagueForTable === $options.LEAGUES.SECOND  }"
       class="il-league__btn"
       >Лига 2</v-btn
     >
@@ -17,14 +17,11 @@
 
 <script>
 import { mapState, mapActions } from "vuex";
+import { LEAGUES } from "@/const";
+
 export default {
   name: "SwitchTableButtons",
-  data() {
-    return {
-      isActiveLeague1: false,
-      isActiveLeague2: false,
-    };
-  },
+  LEAGUES,
   computed: {
     ...mapState("leagueForTable", {
       leagueForTable: "leagueForTable",
@@ -33,19 +30,16 @@ export default {
   methods: {
     ...mapActions("leagueForTable", ["switchLeagueNumber"]),
     switchTable(leagueNumber) {
-      if (leagueNumber === 1) {
-        this.isActiveLeague1 = true;
-        this.isActiveLeague2 = false;
-      } else {
-        this.isActiveLeague1 = false;
-        this.isActiveLeague2 = true;
-      }
       this.switchLeagueNumber(leagueNumber);
     },
   },
   mounted() {
-    this.isActiveLeague1 = true;
-  },
+    const { league } = this.$route.query
+    console.log(this.$route.query)
+    if (league) {
+        this.switchLeagueNumber(Number(league));
+    }
+  }
 };
 </script>
 

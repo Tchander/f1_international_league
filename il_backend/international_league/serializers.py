@@ -10,7 +10,7 @@ class TeamSerializer(serializers.ModelSerializer):
 
     @staticmethod
     def get_pilots(obj):
-        return PilotSerializer(Pilot.objects.filter(team_id=obj.id, is_main_pilot=True), many=True).data
+        return PilotSerializer(Pilot.objects.filter(team_id=obj.id, is_main_pilot=True).order_by('league'), many=True).data
 
     class Meta:
         model = Team
@@ -54,6 +54,7 @@ class ResultSerializer(serializers.ModelSerializer):
     Сериализатор результатов
     """
     pilot = serializers.SlugRelatedField(read_only=True, slug_field='name')
+    team = serializers.SlugRelatedField(read_only=True, slug_field='name')
 
     class Meta:
         model = Result

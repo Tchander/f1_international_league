@@ -6,6 +6,7 @@ import TournamentTable from "@/views/TournamentTable";
 import Teams from "@/views/Teams";
 import Team from "@/views/Team";
 import RaceInfo from "@/views/RaceInfo";
+import Regulations from "@/views/Regulations";
 import { ROUTES } from "@/const";
 
 Vue.use(VueRouter);
@@ -42,6 +43,11 @@ const routes = [
     name: "Race",
     component: RaceInfo,
     props: true,
+  },
+  {
+    path: ROUTES.regulations,
+    name: "Regulations",
+    component: Regulations,
   },
 ];
 
