@@ -45,7 +45,7 @@
       </td>
       <td
         class="il-table-col"
-        v-for="index in numberOfTd(pilot.results)"
+        v-for="index in numberOfTd(pilot.number_of_races_completed)"
         :key="index + 'B'"
       ></td>
     </tr>
@@ -80,7 +80,7 @@ export default {
       return pilot.results.filter((r) => r.league === pilot.league);
     },
     numberOfTd(number_of_finished_race) {
-      return this.raceLength - number_of_finished_race.length;
+      return this.raceLength - number_of_finished_race;
     },
   },
 };

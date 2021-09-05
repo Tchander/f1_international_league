@@ -10,27 +10,35 @@ export const ROUTES = {
 };
 export const CONTENTS = [
   {
+    href: "basic-provisions",
     title: "Основные положения",
   },
   {
+    href: "registration",
     title: "Регистрация и участие в соревнованиях",
   },
   {
+    href: "general-rules",
     title: "Общие правила поведения",
   },
   {
+    href: "rules-in-race",
     title: "Правила поведения во время квалификации и гонки",
   },
   {
+    href: "classification",
     title: "Классификация",
   },
   {
+    href: "score",
     title: "Начисление очков",
   },
   {
+    href: "sc-and-claim",
     title: "СК и порядок подачи претензии",
   },
   {
+    href: "punishments",
     title: "Нарушения и наказания за них",
   },
 ];
