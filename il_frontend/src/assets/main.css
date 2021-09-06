@@ -3,3 +3,30 @@
   max-width: 1200px;
   margin: 0 auto;
 }
+.il-table.il-table.il-table {
+  margin-bottom: 40px;
+  background-color: #242c41;
+}
+.il-table-head.il-table-head.il-table-head.il-table-head > th {
+  color: #fff;
+}
+.il-table-image.il-table-image.il-table-image.il-table-image {
+  width: 50px;
+  height: 32px;
+}
+.il-table-col.il-table-col.il-table-col {
+  color: #fff;
+  font-size: 15px;
+}
+.il-table-row:hover.il-table-row:hover.il-table-row:hover.il-table-row:hover {
+  background-color: #0f3368;
+}
+.gold.gold.gold.gold {
+  color: #ffd200;
+}
+.silver.silver.silver.silver {
+  color: #b0b0b0;
+}
+.bronze.bronze.bronze.bronze {
+  color: #cb5d28;
+}

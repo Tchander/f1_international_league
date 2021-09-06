@@ -11,6 +11,7 @@
             name: 'Race',
             path: '/race' + r.country,
             params: { country: r.country },
+            query: { league: leagueForTable },
           }"
         >
           <v-img
@@ -25,6 +26,7 @@
 
 <script>
 import { API_MEDIA_URL } from "@/const";
+import { mapState } from "vuex";
 export default {
   name: "TableHead",
   API_MEDIA_URL,
@@ -34,18 +36,12 @@ export default {
       required: true,
     },
   },
+  computed: {
+    ...mapState("leagueForTable", {
+      leagueForTable: "leagueForTable",
+    }),
+  },
 };
 </script>
 
-<style scoped>
-.il-table-head.il-table-head.il-table-head {
-  background-color: #242c41;
-}
-.il-table-head.il-table-head.il-table-head > th {
-  color: #fff;
-}
-.il-table-image.il-table-image.il-table-image {
-  width: 50px;
-  height: 32px;
-}
-</style>
+<style scoped></style>

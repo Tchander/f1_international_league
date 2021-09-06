@@ -4,8 +4,8 @@
       @click="switchTable($options.LEAGUES.FIRST)"
       :class="{ active: leagueForTable === $options.LEAGUES.FIRST }"
       class="il-league__btn"
-      >Лига 1</v-btn
-    >
+      >Лига 1
+    </v-btn>
     <v-btn
       @click="switchTable($options.LEAGUES.SECOND)"
       :class="{ active: leagueForTable === $options.LEAGUES.SECOND }"
@@ -30,15 +30,26 @@ export default {
   methods: {
     ...mapActions("leagueForTable", ["switchLeagueNumber"]),
     switchTable(leagueNumber) {
-      this.switchLeagueNumber(leagueNumber);
+      const { league } = this.$route.query;
+      if (league) {
+        if (leagueNumber !== Number(league)) {
+          this.$router.push({
+            name: "TournamentTable",
+            query: { league: leagueNumber },
+          });
+          this.switchLeagueNumber(leagueNumber);
+        }
+      }
+    },
+    changeLeagueNumber() {
+      const { league } = this.$route.query;
+      if (league) {
+        this.switchLeagueNumber(Number(league));
+      }
     },
   },
   mounted() {
-    const { league } = this.$route.query;
-    console.log(this.$route.query);
-    if (league) {
-      this.switchLeagueNumber(Number(league));
-    }
+    this.changeLeagueNumber();
   },
 };
 </script>

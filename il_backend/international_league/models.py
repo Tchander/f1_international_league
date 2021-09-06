@@ -156,8 +156,10 @@ def update_pilot(sender, instance, *args, **kwargs):
                 if pilot[0].qualifying_victories_over_teammate != 'DNQ' and\
                         teammate[0].qualifying_victories_over_teammate != 'DNQ':
                     if pilot[0].position_in_the_last_qualifying != 'DNQ':
-                        if int(pilot[0].position_in_the_last_qualifying) > int(teammate[0].position_in_the_last_qualifying):
-                            teammate.update(qualifying_victories_over_teammate=F("qualifying_victories_over_teammate") + 1)
+                        if int(pilot[0].position_in_the_last_qualifying) >\
+                                int(teammate[0].position_in_the_last_qualifying):
+                            teammate.update(qualifying_victories_over_teammate=
+                                            F("qualifying_victories_over_teammate") + 1)
                         else:
                             pilot.update(qualifying_victories_over_teammate=F("qualifying_victories_over_teammate") + 1)
     elif pilot[0].league == 2 and instance.league == 1 and instance.is_result_of_reserve_pilot:

@@ -16,7 +16,9 @@
       <router-link class="navigation__link" to="/calendar"
         >Календарь</router-link
       >
-      <router-link class="navigation__link" to="/table"
+      <router-link
+        class="navigation__link"
+        :to="{ name: 'TournamentTable', query: { league: 1 } }"
         >Турнирная таблица</router-link
       >
       <router-link class="navigation__link" to="/teams">Команды</router-link>
