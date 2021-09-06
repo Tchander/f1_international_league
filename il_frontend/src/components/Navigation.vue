@@ -18,17 +18,23 @@
       >
       <router-link
         class="navigation__link"
-        :to="{ name: 'TournamentTable', query: { league: 1 } }"
+        :to="{
+          name: 'TournamentTable',
+          query: { league: $options.LEAGUES.FIRST },
+        }"
         >Турнирная таблица</router-link
       >
       <router-link class="navigation__link" to="/teams">Команды</router-link>
     </div>
+    s
   </nav>
 </template>
 
 <script>
+import { LEAGUES } from "@/const";
 export default {
   name: "Navigation",
+  LEAGUES,
   props: {
     color: {
       type: String,
