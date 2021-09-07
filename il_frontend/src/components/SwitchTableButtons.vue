@@ -59,8 +59,6 @@ export default {
   display: flex;
   align-items: center;
   margin-bottom: 20px;
-  /*background-color: #1a202c;*/
-  /*height: 60px;*/
 }
 .il-league__btn.il-league__btn.il-league__btn {
   width: 100%;

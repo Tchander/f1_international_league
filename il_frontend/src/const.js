@@ -7,6 +7,7 @@ export const ROUTES = {
   team: "/team/:teamName",
   race: "/race/:country",
   regulations: "/regulations",
+  constructors_cup: "/constructorsCup",
 };
 export const CONTENTS = [
   {
