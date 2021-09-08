@@ -1,6 +1,16 @@
 <template>
   <tbody class="il-table-body" v-if="teams.length">
-    <tr class="il-table-row" v-for="(team, index) in teams" :key="index">
+    <router-link
+      tag="tr"
+      class="il-table-row il-table-team-row"
+      :to="{
+        name: 'Team',
+        path: '/team' + team.url_name,
+        params: { teamName: team.url_name },
+      }"
+      v-for="(team, index) in teams"
+      :key="index"
+    >
       <td
         class="il-table-col"
         :class="{
@@ -53,7 +63,7 @@
           {{ parseInt(team.total_score_league2) }}
         </div>
       </td>
-    </tr>
+    </router-link>
   </tbody>
 </template>
 
@@ -78,4 +88,8 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.il-table-team-row.il-table-team-row.il-table-team-row.il-table-team-row {
+  cursor: pointer;
+}
+</style>

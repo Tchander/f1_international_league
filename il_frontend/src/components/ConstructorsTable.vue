@@ -2,11 +2,14 @@
   <div class="il-constructors-tables">
     <div>
       <h1 class="il-constructors-league-title">Лига 1</h1>
-      <v-simple-table class="il-table il-constructor-table" v-if="teams.length">
+      <v-simple-table
+        class="il-table il-constructor-table"
+        v-if="teamsFilteredByLeague1.length"
+      >
         <template v-slot:default>
           <constructors-table-head />
           <constructors-table-body
-            :teams="filteredTeamsByLeague(teams, $options.LEAGUES.FIRST)"
+            :teams="teamsFilteredByLeague1"
             :league="$options.LEAGUES.FIRST"
           />
         </template>
@@ -14,11 +17,14 @@
     </div>
     <div>
       <h1 class="il-constructors-league-title">Лига 2</h1>
-      <v-simple-table class="il-table il-constructor-table" v-if="teams.length">
+      <v-simple-table
+        class="il-table il-constructor-table"
+        v-if="teamsFilteredByLeague2.length"
+      >
         <template v-slot:default>
           <constructors-table-head />
           <constructors-table-body
-            :teams="filteredTeamsByLeague(teams, $options.LEAGUES.SECOND)"
+            :teams="teamsFilteredByLeague2"
             :league="$options.LEAGUES.SECOND"
           />
         </template>
@@ -41,22 +47,12 @@ export default {
   },
   computed: {
     ...mapState("teams", {
-      teams: "teams",
+      teamsFilteredByLeague1: "teamsFilteredByLeague1",
+      teamsFilteredByLeague2: "teamsFilteredByLeague2",
     }),
   },
   methods: {
     ...mapActions("teams", ["getAllTeams"]),
-    filteredTeamsByLeague(teams, league) {
-      if (league === LEAGUES.FIRST) {
-        return teams.sort(
-          (prev, next) => next.total_score_league1 - prev.total_score_league1
-        );
-      } else if (league === LEAGUES.SECOND) {
-        return teams.sort(
-          (prev, next) => next.total_score_league2 - prev.total_score_league2
-        );
-      }
-    },
   },
   async mounted() {
     await this.getAllTeams();
@@ -78,5 +74,6 @@ export default {
   background-color: #242c41;
   color: #fff;
   font-size: 32px;
+  border-radius: 4px;
 }
 </style>
