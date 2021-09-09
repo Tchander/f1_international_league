@@ -46,15 +46,12 @@ export default {
     ConstructorsTableHead,
   },
   computed: {
-    ...mapState("teams", {
-      teamsFilteredByLeague1: "teamsFilteredByLeague1",
-      teamsFilteredByLeague2: "teamsFilteredByLeague2",
-    }),
+    ...mapState("teams", ["teamsFilteredByLeague1", "teamsFilteredByLeague2"]),
   },
   methods: {
     ...mapActions("teams", ["getAllTeams"]),
   },
-  async mounted() {
+  async created() {
     await this.getAllTeams();
   },
 };

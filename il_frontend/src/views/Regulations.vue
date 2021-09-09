@@ -19,5 +19,3 @@ export default {
   components: { RegulationsContent, HeaderBanner, Navigation, FooterInfo },
 };
 </script>
-
-<style scoped></style>

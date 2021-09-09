@@ -56,3 +56,8 @@ export const POSITIONS = {
   SECOND: 2,
   THIRD: 3,
 };
+export const CLASS_MAPPER = {
+  [POSITIONS.FIRST]: "gold",
+  [POSITIONS.SECOND]: "silver",
+  [POSITIONS.THIRD]: "bronze",
+};

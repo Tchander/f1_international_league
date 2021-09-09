@@ -25,79 +25,49 @@
             >
               <td
                 class="il-table-col"
-                :class="{
-                  gold:
-                    Number(result.race_position) === $options.POSITIONS.FIRST,
-                  silver:
-                    Number(result.race_position) === $options.POSITIONS.SECOND,
-                  bronze:
-                    Number(result.race_position) === $options.POSITIONS.THIRD,
-                }"
+                :class="
+                  $options.getClassByPosition(Number(result.race_position) - 1)
+                "
               >
                 {{ result.race_position }}
               </td>
               <td
                 class="il-table-col"
-                :class="{
-                  gold:
-                    Number(result.race_position) === $options.POSITIONS.FIRST,
-                  silver:
-                    Number(result.race_position) === $options.POSITIONS.SECOND,
-                  bronze:
-                    Number(result.race_position) === $options.POSITIONS.THIRD,
-                }"
+                :class="
+                  $options.getClassByPosition(Number(result.race_position) - 1)
+                "
               >
                 {{ result.pilot }}
               </td>
               <td
                 class="il-table-col"
-                :class="{
-                  gold:
-                    Number(result.race_position) === $options.POSITIONS.FIRST,
-                  silver:
-                    Number(result.race_position) === $options.POSITIONS.SECOND,
-                  bronze:
-                    Number(result.race_position) === $options.POSITIONS.THIRD,
-                }"
+                :class="
+                  $options.getClassByPosition(Number(result.race_position) - 1)
+                "
               >
                 {{ result.team }}
               </td>
               <td
                 class="il-table-col"
-                :class="{
-                  gold:
-                    Number(result.race_position) === $options.POSITIONS.FIRST,
-                  silver:
-                    Number(result.race_position) === $options.POSITIONS.SECOND,
-                  bronze:
-                    Number(result.race_position) === $options.POSITIONS.THIRD,
-                }"
+                :class="
+                  $options.getClassByPosition(Number(result.race_position) - 1)
+                "
               >
                 {{ result.qualifying_position }}
               </td>
               <td
                 class="il-table-col"
-                :class="{
-                  gold:
-                    Number(result.race_position) === $options.POSITIONS.FIRST,
-                  silver:
-                    Number(result.race_position) === $options.POSITIONS.SECOND,
-                  bronze:
-                    Number(result.race_position) === $options.POSITIONS.THIRD,
-                }"
+                :class="
+                  $options.getClassByPosition(Number(result.race_position) - 1)
+                "
               >
                 {{ result.best_lap }}
               </td>
               <td
                 class="il-table-col"
-                :class="{
-                  gold:
-                    Number(result.race_position) === $options.POSITIONS.FIRST,
-                  silver:
-                    Number(result.race_position) === $options.POSITIONS.SECOND,
-                  bronze:
-                    Number(result.race_position) === $options.POSITIONS.THIRD,
-                }"
+                :class="
+                  $options.getClassByPosition(Number(result.race_position) - 1)
+                "
               >
                 <div v-if="result.score % 1 !== 0">
                   {{ result.score }}
@@ -121,10 +91,12 @@ import Navigation from "@/components/Navigation";
 import HeaderBanner from "@/components/HeaderBanner";
 import { mapActions, mapState } from "vuex";
 import { POSITIONS } from "@/const";
+import { getClassByPosition } from "@/helpers";
 
 export default {
   name: "RaceInfo",
   POSITIONS,
+  getClassByPosition,
   components: { FooterInfo, Navigation, HeaderBanner },
   props: {
     country: {
@@ -153,11 +125,11 @@ export default {
       }
     },
   },
+  created() {
+    this.changeLeagueNumber();
+  },
   async mounted() {
     await this.getRaceByCountry(this.country);
-    this.changeLeagueNumber();
   },
 };
 </script>
-
-<style scoped></style>

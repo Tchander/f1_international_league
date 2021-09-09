@@ -5,14 +5,7 @@
       v-for="(pilot, index) in filterPilotsByLeague(pilots, leagueForTable)"
       :key="index"
     >
-      <td
-        class="il-table-col"
-        :class="{
-          gold: index + 1 === $options.POSITIONS.FIRST,
-          silver: index + 1 === $options.POSITIONS.SECOND,
-          bronze: index + 1 === $options.POSITIONS.THIRD,
-        }"
-      >
+      <td class="il-table-col" :class="$options.getClassByPosition(index)">
         {{ index + 1 }}
       </td>
       <td class="il-table-col">{{ pilot.name }}</td>
@@ -27,11 +20,7 @@
       </td>
       <td
         class="il-table-col"
-        :class="{
-          gold: Number(result.race_position) === $options.POSITIONS.FIRST,
-          silver: Number(result.race_position) === $options.POSITIONS.SECOND,
-          bronze: Number(result.race_position) === $options.POSITIONS.THIRD,
-        }"
+        :class="$options.getClassByPosition(Number(result.race_position) - 1)"
         v-for="(result, index) in filterPilotResultsByLeague(pilot)"
         :key="index + 'A'"
       >
@@ -55,10 +44,12 @@
 <script>
 import { mapState } from "vuex";
 import { POSITIONS } from "@/const";
+import { getClassByPosition } from "@/helpers";
 
 export default {
   name: "TableBody",
   POSITIONS,
+  getClassByPosition,
   props: {
     raceLength: {
       type: Number,
@@ -87,5 +78,3 @@ export default {
   },
 };
 </script>
-
-<style scoped></style>

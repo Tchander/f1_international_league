@@ -1,43 +1,20 @@
 <template>
   <tbody class="il-table-body" v-if="teams.length">
-    <router-link
-      tag="tr"
+    <tr
       class="il-table-row il-table-team-row"
-      :to="{
-        name: 'Team',
-        path: '/team' + team.url_name,
-        params: { teamName: team.url_name },
-      }"
       v-for="(team, index) in teams"
       :key="index"
+      @click="toSelectedTeam(team.url_name)"
     >
-      <td
-        class="il-table-col"
-        :class="{
-          gold: index + 1 === $options.POSITIONS.FIRST,
-          silver: index + 1 === $options.POSITIONS.SECOND,
-          bronze: index + 1 === $options.POSITIONS.THIRD,
-        }"
-      >
+      <td class="il-table-col" :class="$options.getClassByPosition(index)">
         {{ index + 1 }}
       </td>
-      <td
-        class="il-table-col"
-        :class="{
-          gold: index + 1 === $options.POSITIONS.FIRST,
-          silver: index + 1 === $options.POSITIONS.SECOND,
-          bronze: index + 1 === $options.POSITIONS.THIRD,
-        }"
-      >
+      <td class="il-table-col" :class="$options.getClassByPosition(index)">
         {{ team.name }}
       </td>
       <td
         class="il-table-col"
-        :class="{
-          gold: index + 1 === $options.POSITIONS.FIRST,
-          silver: index + 1 === $options.POSITIONS.SECOND,
-          bronze: index + 1 === $options.POSITIONS.THIRD,
-        }"
+        :class="$options.getClassByPosition(index)"
         v-if="league === $options.LEAGUES.FIRST"
       >
         <div v-if="team.total_score_league1 % 1 !== 0">
@@ -49,11 +26,7 @@
       </td>
       <td
         class="il-table-col"
-        :class="{
-          gold: index + 1 === $options.POSITIONS.FIRST,
-          silver: index + 1 === $options.POSITIONS.SECOND,
-          bronze: index + 1 === $options.POSITIONS.THIRD,
-        }"
+        :class="$options.getClassByPosition(index)"
         v-else-if="league === $options.LEAGUES.SECOND"
       >
         <div v-if="team.total_score_league2 % 1 !== 0">
@@ -63,18 +36,20 @@
           {{ parseInt(team.total_score_league2) }}
         </div>
       </td>
-    </router-link>
+    </tr>
   </tbody>
 </template>
 
 <script>
 import { LEAGUES } from "@/const";
 import { POSITIONS } from "@/const";
+import { getClassByPosition } from "@/helpers";
 
 export default {
   name: "ConstructorsTableBody",
   LEAGUES,
   POSITIONS,
+  getClassByPosition,
   props: {
     teams: {
       type: Array,
@@ -83,6 +58,15 @@ export default {
     league: {
       type: Number,
       required: true,
+    },
+  },
+  methods: {
+    toSelectedTeam(urlName) {
+      this.$router.push({
+        name: "Team",
+        path: "/team" + urlName,
+        params: { teamName: urlName },
+      });
     },
   },
 };

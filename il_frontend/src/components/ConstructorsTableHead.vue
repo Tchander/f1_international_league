@@ -1,6 +1,6 @@
 <template>
   <thead>
-    <tr class="il-table-head">
+    <tr v-once class="il-table-head">
       <th class="text-center">Поз.</th>
       <th class="text-center">Команда</th>
       <th class="text-center">Очки</th>
@@ -13,5 +13,3 @@ export default {
   name: "ConstructorsTableHead",
 };
 </script>
-
-<style scoped></style>

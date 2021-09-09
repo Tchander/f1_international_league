@@ -22,17 +22,13 @@ export default {
   },
   mutations: {
     updateTeams(state, payload) {
-      state.teams = payload.slice(0);
-      state.teamsFilteredByLeague1 = payload
-        .slice(0)
-        .sort(
-          (prev, next) => next.total_score_league1 - prev.total_score_league1
-        );
-      state.teamsFilteredByLeague2 = payload
-        .slice(0)
-        .sort(
-          (prev, next) => next.total_score_league2 - prev.total_score_league2
-        );
+      state.teams = [...payload];
+      state.teamsFilteredByLeague1 = [...payload].sort(
+        (prev, next) => next.total_score_league1 - prev.total_score_league1
+      );
+      state.teamsFilteredByLeague2 = [...payload].sort(
+        (prev, next) => next.total_score_league2 - prev.total_score_league2
+      );
     },
     updateCurrentTeam(state, payload) {
       state.currentTeam = payload;
