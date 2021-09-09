@@ -5,14 +5,7 @@
       v-for="(pilot, index) in filterPilotsByLeague(pilots, leagueForTable)"
       :key="index"
     >
-      <td
-        class="il-table-col"
-        :class="{
-          gold: index + 1 === 1,
-          silver: index + 1 === 2,
-          bronze: index + 1 === 3,
-        }"
-      >
+      <td class="il-table-col" :class="$options.getClassByPosition(index)">
         {{ index + 1 }}
       </td>
       <td class="il-table-col">{{ pilot.name }}</td>
@@ -27,11 +20,7 @@
       </td>
       <td
         class="il-table-col"
-        :class="{
-          gold: result.race_position === '1',
-          silver: result.race_position === '2',
-          bronze: result.race_position === '3',
-        }"
+        :class="$options.getClassByPosition(Number(result.race_position) - 1)"
         v-for="(result, index) in filterPilotResultsByLeague(pilot)"
         :key="index + 'A'"
       >
@@ -54,9 +43,13 @@
 
 <script>
 import { mapState } from "vuex";
+import { POSITIONS } from "@/const";
+import { getClassByPosition } from "@/helpers";
 
 export default {
   name: "TableBody",
+  POSITIONS,
+  getClassByPosition,
   props: {
     raceLength: {
       type: Number,
@@ -85,25 +78,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-.il-table-body.il-table-body.il-table-body {
-  background-color: #242c41;
-}
-.il-table-col.il-table-col.il-table-col {
-  color: #fff;
-  font-size: 15px;
-}
-.il-table-row:hover.il-table-row:hover.il-table-row:hover {
-  background-color: #0f3368;
-}
-.gold.gold.gold {
-  color: #ffd200;
-}
-.silver.silver.silver {
-  color: #b0b0b0;
-}
-.bronze.bronze.bronze {
-  color: #cb5d28;
-}
-</style>

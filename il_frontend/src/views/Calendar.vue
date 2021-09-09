@@ -19,5 +19,3 @@ export default {
   components: { FooterInfo, CalendarSlider, Navigation, HeaderBanner },
 };
 </script>
-
-<style scoped></style>

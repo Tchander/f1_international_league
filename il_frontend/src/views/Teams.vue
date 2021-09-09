@@ -20,5 +20,3 @@ export default {
   components: { TeamsCards, FooterInfo, Navigation, HeaderBanner },
 };
 </script>
-
-<style scoped></style>

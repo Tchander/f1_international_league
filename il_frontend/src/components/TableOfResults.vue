@@ -38,10 +38,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-.il-table.il-table.il-table {
-  margin-bottom: 35px;
-  background-color: #242c41;
-}
-</style>

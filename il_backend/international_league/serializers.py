@@ -1,4 +1,5 @@
 from rest_framework import serializers
+from django.db.models import Q
 from .models import *
 
 
@@ -42,7 +43,8 @@ class RaceSerializer(serializers.ModelSerializer):
 
     @staticmethod
     def get_results(obj):
-        return ResultSerializer(Result.objects.filter(race_id=obj.id), many=True).data
+        return ResultSerializer(Result.objects.filter(Q(race_id=obj.id), ~Q(race_position='DNS'))
+                                .order_by('-score'), many=True).data
 
     class Meta:
         model = Race

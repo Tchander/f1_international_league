@@ -20,5 +20,3 @@ export default {
   components: { TableOfResults, FooterInfo, Navigation, HeaderBanner },
 };
 </script>
-
-<style scoped></style>
