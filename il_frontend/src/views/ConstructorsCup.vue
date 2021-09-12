@@ -3,19 +3,19 @@
     <header-banner />
     <div class="il-container">
       <navigation :color="'lightGrey'" />
-      <regulations-content />
+      <constructors-table />
     </div>
     <footer-info :color="'lightGrey'" />
   </div>
 </template>
 
 <script>
-import HeaderBanner from "@/components/HeaderBanner";
 import Navigation from "@/components/Navigation";
 import FooterInfo from "@/components/FooterInfo";
-import RegulationsContent from "@/components/RegulationsContent";
+import HeaderBanner from "@/components/HeaderBanner";
+import ConstructorsTable from "@/components/ConstructorsTable";
 export default {
-  name: "Regulations",
-  components: { RegulationsContent, HeaderBanner, Navigation, FooterInfo },
+  name: "ConstructorsCup",
+  components: { ConstructorsTable, FooterInfo, Navigation, HeaderBanner },
 };
 </script>

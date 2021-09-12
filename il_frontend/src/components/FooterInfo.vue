@@ -91,10 +91,7 @@ export default {
   border-radius: 5px;
 }
 .il__footer__card__text {
-  /*background-color: #2aah6;*/
   background-color: #0f3368;
-  /*background-color: #2a76e6;*/
-  /*background-color: rgb(66, 6, 1);*/
   color: #fff;
 }
 .il__footer__card__text.light-grey {

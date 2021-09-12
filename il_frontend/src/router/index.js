@@ -7,6 +7,7 @@ import Teams from "@/views/Teams";
 import Team from "@/views/Team";
 import RaceInfo from "@/views/RaceInfo";
 import Regulations from "@/views/Regulations";
+import ConstructorsCup from "@/views/ConstructorsCup";
 import { ROUTES } from "@/const";
 
 Vue.use(VueRouter);
@@ -26,6 +27,11 @@ const routes = [
     path: ROUTES.tournament_table,
     name: "TournamentTable",
     component: TournamentTable,
+  },
+  {
+    path: ROUTES.constructors_cup,
+    name: "ConstructorsCup",
+    component: ConstructorsCup,
   },
   {
     path: ROUTES.teams,
