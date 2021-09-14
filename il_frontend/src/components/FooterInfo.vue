@@ -1,64 +1,24 @@
 <template>
   <v-footer
-    class="il__footer"
+    class="il-footer"
     :class="{
       'light-grey': color === 'lightGrey',
     }"
   >
-    <v-card flat tile class="il__footer__card">
+    <v-card flat tile class="il-footer-card">
       <v-card-text
-        class="il__footer__card__text"
+        class="il-footer-card__text"
         :class="{
           'light-grey': color === 'lightGrey',
         }"
       >
-        <v-btn
-          class="il__footer_card__button"
-          v-for="icon in icons"
-          :key="icon"
-          icon
-        >
-          <a
-            v-if="icon === 'mdi-vk'"
-            class="il__footer__link"
-            href="https://vk.com/f1ileague"
-            target="_blank"
-          >
-            <v-icon color="#fff" size="40px">
-              {{ icon }}
-            </v-icon>
-          </a>
-          <a
-            v-if="icon === 'mdi-telegram'"
-            class="il__footer__link"
-            href="https://t.me/joinchat/JmWgNEOkS9tfo58lIOBhhw"
-            target="_blank"
-          >
-            <v-icon color="#fff" size="40px">
-              {{ icon }}
-            </v-icon>
-          </a>
-          <a
-            v-if="icon === 'mdi-youtube'"
-            class="il__footer__link"
-            href="https://youtube.com/channel/UC9F7VXNzjL4y07XXao0D4PQ"
-            target="_blank"
-          >
-            <v-icon color="#fff" size="40px">
-              {{ icon }}
-            </v-icon>
-          </a>
-          <a
-            v-if="icon === 'mdi-discord'"
-            class="il__footer__link"
-            href="https://discord.gg/g6ADEgp9tH"
-            target="_blank"
-          >
-            <v-icon color="#fff" size="40px">
-              {{ icon }}
-            </v-icon>
-          </a>
-        </v-btn>
+        <ul class="il-footer-social">
+          <li v-for="(item, i) in items" :key="i">
+            <a :href="item.href" class="il-footer-link" target="_blank">
+              <img class="il-footer-link__img" :src="item.src" alt="" />
+            </a>
+          </li>
+        </ul>
       </v-card-text>
     </v-card>
   </v-footer>
@@ -72,35 +32,63 @@ export default {
       type: String,
     },
   },
-  data: () => ({
-    icons: ["mdi-vk", "mdi-telegram", "mdi-youtube", "mdi-discord"],
-  }),
+  data() {
+    return {
+      items: [
+        {
+          src: require("@/assets/img/vk.svg"),
+          href: "https://vk.com/f1ileague",
+        },
+        {
+          src: require("@/assets/img/telegram.svg"),
+          href: "https://t.me/joinchat/JmWgNEOkS9tfo58lIOBhhw",
+        },
+        {
+          src: require("@/assets/img/youtube.svg"),
+          href: "https://youtube.com/channel/UC9F7VXNzjL4y07XXao0D4PQ",
+        },
+        {
+          src: require("@/assets/img/discord.svg"),
+          href: "https://discord.gg/g6ADEgp9tH",
+        },
+      ],
+    };
+  },
 };
 </script>
 
 <style scoped>
-.il__footer.il__footer.il__footer {
+.il-footer.il-footer.il-footer {
   background-color: #0f3368;
 }
-.il__footer.il__footer.il__footer.light-grey {
+.il-footer.il-footer.il-footer.light-grey {
   background-color: #242c41;
 }
-.il__footer__card {
+.il-footer-card {
   width: 100%;
   color: #fff;
   border-radius: 5px;
 }
-.il__footer__card__text {
+.il-footer-card__text {
   background-color: #0f3368;
   color: #fff;
 }
-.il__footer__card__text.light-grey {
-  background-color: #242c41;
+.il-footer-social {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-.il__footer_card__button {
+.il-footer-social > li {
+  list-style-type: none;
+  width: 40px;
+  height: 40px;
   margin: 0 20px;
 }
-.il__footer__link {
+.il-footer-link {
   text-decoration: none;
+}
+.il-footer-link__img {
+  width: 40px;
+  height: 40px;
 }
 </style>
