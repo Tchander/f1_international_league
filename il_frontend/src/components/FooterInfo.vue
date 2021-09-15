@@ -69,9 +69,12 @@ export default {
   color: #fff;
   border-radius: 5px;
 }
-.il-footer-card__text {
+.il-footer-card__text.il-footer-card__text.il-footer-card__text {
   background-color: #0f3368;
   color: #fff;
+}
+.il-footer-card__text.il-footer-card__text.il-footer-card__text.light-grey {
+  background-color: #242c41;
 }
 .il-footer-social {
   display: flex;
